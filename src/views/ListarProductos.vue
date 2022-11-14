@@ -9,9 +9,19 @@
     </v-row>
     <v-row>
     <v-col class="mb-1">
-       <v-btn :to="{name:'crearArticulo'}" class="mx-2" fab dark color="indigo">
-         <v-icon dark>mdi-plus</v-icon>
-       </v-btn>
+        <div>
+                  <v-btn 
+                    color="indigo"
+                    elevation="2"
+                    outlined
+                    dark
+                    class="mb-2"
+                    @click="openDialogRegistrar()"
+                  >
+                  <v-icon dark>mdi-plus</v-icon>
+                    <span>Registrar Producto</span>
+                  </v-btn>
+                </div>   
     </v-col>
     </v-row>
     <v-row class="text-center">
@@ -43,6 +53,14 @@
         </v-simple-table>
     </v-col>
     </v-row>
+ 
+                    <v-dialog persistent v-model="dialogoRegistrar" max-width="880px">
+                        <RegistrarProducto
+                        v-if="dialogoRegistrar"
+                            @close-dialog-save="closeDialogRegistrar()"                           
+                        ></RegistrarProducto>
+                    </v-dialog>
+                 
     <!-- ventana de diálogo para eliminar registros -->
     <v-dialog v-model="dialog" max-width="350">
         <v-card>
@@ -50,7 +68,7 @@
             <v-card-actions>
             <v-spacer></v-spacer>
                 <v-btn @click="dialog = false">Cancelar</v-btn>
-                <v-btn @click="confirmarBorrado(id)" color="error">Aceptar</v-btn>
+                <!-- <v-btn @click="confirmarBorrado(id)" color="error">Aceptar</v-btn> -->
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -63,14 +81,18 @@
     </v-container>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import RegistrarProducto from "@/components/CrearProducto.vue";
 export default {
     name:'listarProductos',
+    components: {
+    RegistrarProducto,},
     mounted(){
-        this.obtenerArticulos();
+        // this.obtenerArticulos();
     },
     data(){
         return{            
+            dialogoRegistrar: false,
             dialog:false,
             articulos:null,
             id:null,
@@ -79,28 +101,34 @@ export default {
         }
     },
     methods:{
-        obtenerArticulos(){
-            axios.get('http://localhost/apirest/articulos')
-            .then(r => {
-                this.articulos = r.data;
-                console.log(this.articulos);
-            })
-            .catch(function(error){
-                console.log(error);
-            })
+        openDialogRegistrar(){
+      this.dialogoRegistrar = true;
+    },
+    closeDialogRegistrar() {
+      this.dialogoRegistrar = false;
+    },
+        // obtenerArticulos(){
+        //     axios.get('http://localhost/apirest/articulos')
+        //     .then(r => {
+        //         this.articulos = r.data;
+        //         console.log(this.articulos);
+        //     })
+        //     .catch(function(error){
+        //         console.log(error);
+        //     })
 
-        },
-        confirmarBorrado(id){            
-            axios.delete('http://localhost/apirest/articulos?id='+id)
-            .then(()=>{
-                    this.obtenerArticulos();
-                    this.dialog = false;
-                    this.snackbar = true
-            })
-            .catch(function(error){
-                console.log(error);
-            });    
-        }
+        // },
+        // confirmarBorrado(id){            
+        //     axios.delete('http://localhost/apirest/articulos?id='+id)
+        //     .then(()=>{
+        //             this.obtenerArticulos();
+        //             this.dialog = false;
+        //             this.snackbar = true
+        //     })
+        //     .catch(function(error){
+        //         console.log(error);
+        //     });    
+        // }
     }
 }
 </script>

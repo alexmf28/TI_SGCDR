@@ -1,27 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import inicio from '../components/Inicio.vue'
+import listarProductos from '../views/ListarProductos.vue'
+
+
 
 Vue.use(VueRouter)
 
+Vue.component('inicio', inicio);
+
+Vue.component('listarProductos', listarProductos);
+
 const routes = [   
-  {
-    path: '/',
-    name: 'Dashboard',
-    redirect: "/inicio",
-    component: () =>
-      import ('../components/Inicio.vue'),
-      children: [{
-        path: 'productos',
-        name: "productos",
-        component: () => import("@/views/ListarProductos"),
-      },    
-      {
-        path: "crear",
-        name: "crear",
-        component: () => import("@/components/CrearProducto"),
-      },      
-    ]
-  },   
+    {path: '/', component:inicio},
+    {path: '/inicio', component: inicio},
+    {path: '/productos', component: listarProductos},            
 ]
 
 const router = new VueRouter({
