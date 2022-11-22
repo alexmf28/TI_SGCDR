@@ -1,4 +1,5 @@
 <template>
+  <v-app>
     <div>
         <v-navigation-drawer 
    v-model="drawer"
@@ -53,9 +54,12 @@
   
   </v-card> 
     </div>
+  </v-app>
+  
 </template>
 <script>
 export default {
+  name: 'App',
 data: () => ({    
 drawer: false,
 icons: ['home','shopping','email'],

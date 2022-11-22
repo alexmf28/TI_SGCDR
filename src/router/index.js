@@ -16,12 +16,13 @@ Vue.component('loginCliente', loginCliente);
 Vue.component('loginAdmin', loginAdmin);
 Vue.component('listaProductosCliente', listaProductosCliente);
 
-const routes = [   
+const routes = [
+   {path: '/', component:loginCliente},   
+   {path: '/login/cliente', component: loginCliente},  
+   {path: '/login/admin', component: loginAdmin},   
     {path: '/inicioAdmin', component:inicioAdmin},
     {path: '/inicioCliente', component: inicioCliente},
     {path: '/productos', component: listarProductos},  
-    {path: '/login/cliente', component: loginCliente},  
-    {path: '/login/admin', component: loginAdmin},   
     {path: '/listaProductosCliente', component: listaProductosCliente},            
 ]
 

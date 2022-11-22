@@ -103,7 +103,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-wrap {
-    background-color: #242939 !important;
+  
     display: flex;
     align-items: center;
     padding: 40px 1rem;
